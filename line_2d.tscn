@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://bceajcc26bg23"]
+
+[ext_resource type="Shader" path="res://BallIsStick.gdshader" id="1_noccm"]
+[ext_resource type="Script" path="res://Line2D.gd" id="2_o8eki"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_11epm"]
+shader = ExtResource("1_noccm")
+shader_parameter/fade_time = 0.5
+
+[node name="Line2D" type="Line2D"]
+material = SubResource("ShaderMaterial_11epm")
+position = Vector2(210, 450)
+width = 1.0
+default_color = Color(1, 0, 0, 1)
+script = ExtResource("2_o8eki")

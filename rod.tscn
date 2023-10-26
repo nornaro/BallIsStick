@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://dr77un6qm3m85"]
+
+[ext_resource type="Texture2D" uid="uid://cl1snfh17tqrj" path="res://coin-icon-3826.png" id="1_bt2vg"]
+[ext_resource type="PhysicsMaterial" uid="uid://f2r0ftyjl5n2" path="res://rod.tres" id="1_bxew7"]
+[ext_resource type="Script" path="res://Rod.cs" id="1_q44ex"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5ls4r"]
+radius = 301.0
+
+[node name="Rod" type="StaticBody2D" groups=["rod"]]
+physics_material_override = ExtResource("1_bxew7")
+script = ExtResource("1_q44ex")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+top_level = true
+scale = Vector2(0.05, 0.05)
+shape = SubResource("CircleShape2D_5ls4r")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Area2D"]
+top_level = true
+scale = Vector2(0.05, 0.05)
+shape = SubResource("CircleShape2D_5ls4r")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("1_bt2vg")
+
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]
