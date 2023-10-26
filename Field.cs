@@ -15,7 +15,7 @@ public partial class Field : MeshInstance2D
 
 	public override void _Input(InputEvent @event)
 	{
-		if (!@event.IsActionReleased("place"))
+		if (@event.IsActionReleased("place"))
 			if (GetTree().GetNodesInGroup("selected").Count != 0)
 				GetTree().GetFirstNodeInGroup("selected").RemoveFromGroup("selected");
 		if (!inside)
@@ -23,6 +23,10 @@ public partial class Field : MeshInstance2D
 
 		if (@event.IsActionPressed("place"))
 		{
+			if (GetTree().GetNodesInGroup("rod").Count > 3)
+			{
+				return;
+			}
 			var rod = scene.Instantiate();
 			((Node2D)rod).GlobalPosition = GetGlobalMousePosition();
 			GetNode("Rods").AddChild(rod);

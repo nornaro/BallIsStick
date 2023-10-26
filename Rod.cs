@@ -22,10 +22,6 @@ public partial class Rod : StaticBody2D
 	{
 		Vector2 mousePosition = GetGlobalMousePosition();
 		Vector2 direction = mousePosition - GlobalPosition;
-
-		if (direction.Length() < 1.0)
-			return;
-
 		velocity = direction * (float)(speed * delta);
 	}
 	

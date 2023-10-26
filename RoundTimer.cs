@@ -14,9 +14,13 @@ public partial class RoundTimer : Timer
 		{
 			if (ball.LinearVelocity.Length() < 0.01f)
 			{
-				ball.Sleeping=true;
 				ball.LinearVelocity=Vector2.Zero;
 				ball.AngularVelocity=0;
+				var newMaterial = (PhysicsMaterial)ball.PhysicsMaterialOverride.Duplicate(true);
+				newMaterial.Absorbent=true;
+				newMaterial.Bounce=1;
+				ball.PhysicsMaterialOverride=newMaterial;
+				ball.Sleeping=true;
 				continue;
 			}
 			//Stop();
@@ -35,14 +39,15 @@ public partial class RoundTimer : Timer
 		var balls = GetTree().GetNodesInGroup("ball");
 		foreach (RigidBody2D ball in balls)
 		{
-			if (ball.LinearVelocity.Length() < 0.1f)
+			if (ball.LinearVelocity.Length() < 1f)
 			{
-				ball.Freeze=true;
+				if (ball.Position.Y < 850)
+				{
+					continue;
+				}
 				ball.LinearVelocity=Vector2.Zero;
 				ball.AngularVelocity=0;
-				var newMaterial = (PhysicsMaterial)ball.PhysicsMaterialOverride.Duplicate(true);
-				newMaterial.Absorbent=true;
-				ball.PhysicsMaterialOverride=newMaterial;
+				ball.Freeze=true;
 				continue;
 			}
 		}
