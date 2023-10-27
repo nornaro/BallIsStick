@@ -21,8 +21,14 @@ public partial class Funnel : Sprite2D
 
 	private void SpawnBall()
 	{
-		var ball = (Node2D)scene.Instantiate();
+		var ball = (RigidBody2D)scene.Instantiate();
 		ball.GlobalPosition = GlobalPosition - new Vector2(0, -10);
+		ball.GravityScale = (float)GetNode<VSlider>("../Border/BorderControl/Gravity").Value;
+		ball.Mass = (float)GetNode<VSlider>("../Border/BorderControl/Mass").Value;
+		ball.Inertia = (float)GetNode<VSlider>("../Border/BorderControl/Mass").Value;
+		ball.PhysicsMaterialOverride.Bounce = (float)GetNode<VSlider>("../Border/BorderControl/Bounce").Value;
+		ball.PhysicsMaterialOverride.Friction = (float)GetNode<VSlider>("../Border/BorderControl/Friction").Value;
+
 		GetNode("../Balls").AddChild(ball);		
 		UpdateCounterText();
 	}

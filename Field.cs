@@ -27,6 +27,11 @@ public partial class Field : MeshInstance2D
 			{
 				return;
 			}
+			
+			if (GetNode<ItemList>("../Border/BorderControl/ItemList").Visible)
+			{
+				return;
+			}
 			var rod = scene.Instantiate();
 			((Node2D)rod).GlobalPosition = GetGlobalMousePosition();
 			GetNode("Rods").AddChild(rod);

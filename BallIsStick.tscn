@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://do2xkxu3ihh6c"]
+[gd_scene load_steps=19 format=3 uid="uid://do2xkxu3ihh6c"]
 
 [ext_resource type="Script" path="res://BallIsStick.gd" id="1_4cyc7"]
 [ext_resource type="Script" path="res://Field.cs" id="1_dghwm"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://m3m13snywrve" path="res://Hole.tscn" id="6_o66vm"]
 [ext_resource type="Script" path="res://Holes.gd" id="6_xj2uw"]
 [ext_resource type="Script" path="res://CountDown.cs" id="7_5j815"]
+[ext_resource type="Script" path="res://BorderControl.gd" id="7_06d5y"]
 [ext_resource type="Script" path="res://RoundTimer.cs" id="9_xaoh2"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_bkpmb"]
@@ -1308,6 +1309,12 @@ size = Vector2(166, 1400)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nkfda"]
 size = Vector2(700, 266)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jkbwy"]
+size = Vector2(200, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e4kt7"]
+size = Vector2(18, 730)
+
 [node name="Main" type="Node2D"]
 position = Vector2(210, 450)
 script = ExtResource("1_4cyc7")
@@ -1339,8 +1346,6 @@ script = ExtResource("1_dghwm")
 autostart = true
 script = ExtResource("3_dsuex")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-
 [node name="Border" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_6hmmw")
 format = 2
@@ -1364,6 +1369,115 @@ shape = SubResource("RectangleShape2D_nkfda")
 position = Vector2(0, -565)
 shape = SubResource("RectangleShape2D_nkfda")
 
+[node name="BorderControl" type="Control" parent="Border"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("7_06d5y")
+
+[node name="Gravity" type="VSlider" parent="Border/BorderControl"]
+offset_left = -228.0
+offset_top = -400.0
+offset_right = -178.0
+offset_bottom = -50.0
+max_value = 10.0
+step = 0.1
+value = 1.0
+
+[node name="Mass" type="VSlider" parent="Border/BorderControl"]
+offset_left = -229.0
+offset_top = -20.0
+offset_right = -179.0
+offset_bottom = 330.0
+max_value = 10.0
+step = 0.1
+value = 1.0
+
+[node name="Bounce" type="VSlider" parent="Border/BorderControl"]
+offset_left = 179.0
+offset_top = -400.0
+offset_right = 229.0
+offset_bottom = -50.0
+max_value = 1.0
+step = 0.1
+value = 1.0
+
+[node name="Friction" type="VSlider" parent="Border/BorderControl"]
+offset_left = 179.0
+offset_top = -20.0
+offset_right = 229.0
+offset_bottom = 330.0
+max_value = 1.0
+step = 0.1
+
+[node name="PropertyName" type="RichTextLabel" parent="Border/BorderControl"]
+visible = false
+show_behind_parent = true
+top_level = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = 350.0
+offset_bottom = 390.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0.8, 0.8, 0.8, 1)
+bbcode_enabled = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="PropertyValue" type="LineEdit" parent="Border/BorderControl"]
+top_level = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = 343.0
+offset_right = 100.0
+offset_bottom = 383.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+context_menu_enabled = false
+shortcut_keys_enabled = false
+
+[node name="ItemList" type="ItemList" parent="Border/BorderControl"]
+visible = false
+layout_mode = 0
+offset_left = -110.0
+offset_top = 230.0
+offset_right = -10.0
+offset_bottom = 346.0
+item_count = 4
+item_0/text = "Gravity"
+item_1/text = "Mass"
+item_2/text = "Bounce"
+item_3/text = "Friction"
+
+[node name="Area2D" type="Area2D" parent="Border/BorderControl"]
+position = Vector2(0, -7)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Border/BorderControl/Area2D"]
+position = Vector2(0, 370)
+shape = SubResource("RectangleShape2D_jkbwy")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Border/BorderControl/Area2D"]
+position = Vector2(-201, -28)
+shape = SubResource("RectangleShape2D_e4kt7")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Border/BorderControl/Area2D"]
+position = Vector2(201, -28)
+shape = SubResource("RectangleShape2D_e4kt7")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
 [node name="Control" type="Control" parent="."]
 clip_contents = true
 layout_mode = 3
@@ -1372,6 +1486,20 @@ offset_left = -56.0
 offset_top = -448.0
 offset_right = -16.0
 offset_bottom = -408.0
+
+[node name="Node" type="Node" parent="Control"]
+
+[node name="Line2D1" type="Line2D" parent="Control/Node"]
+position = Vector2(210, 450)
+points = PackedVector2Array(190, 330, -190, 330)
+width = 1.0
+default_color = Color(0.196078, 0, 0, 0.588235)
+
+[node name="Line2D2" type="Line2D" parent="Control/Node"]
+position = Vector2(210, 450)
+points = PackedVector2Array(190, -400, -190, -400)
+width = 1.0
+default_color = Color(0.196078, 0, 0, 0.588235)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Control"]
 collision_layer = 2
@@ -1386,11 +1514,11 @@ position = Vector2(331, 448)
 shape = SubResource("RectangleShape2D_cvc3h")
 
 [node name="CollisionShape2D11" type="CollisionShape2D" parent="Control/StaticBody2D"]
-position = Vector2(56, 909)
+position = Vector2(56, 910)
 shape = SubResource("RectangleShape2D_nkfda")
 
 [node name="CollisionShape2D12" type="CollisionShape2D" parent="Control/StaticBody2D"]
-position = Vector2(56, -89)
+position = Vector2(56, -85)
 shape = SubResource("RectangleShape2D_nkfda")
 
 [node name="Area2D" type="Area2D" parent="Control"]
@@ -1535,6 +1663,15 @@ script = ExtResource("9_xaoh2")
 
 [connection signal="timeout" from="Funnel/Timer" to="Funnel" method="_on_timer_timeout"]
 [connection signal="timeout" from="Field/Timer" to="Field/Timer" method="_on_timeout"]
+[connection signal="value_changed" from="Border/BorderControl/Gravity" to="Border/BorderControl" method="_on_gravity_value_changed"]
+[connection signal="value_changed" from="Border/BorderControl/Mass" to="Border/BorderControl" method="_on_mass_value_changed"]
+[connection signal="value_changed" from="Border/BorderControl/Bounce" to="Border/BorderControl" method="_on_bounce_value_changed"]
+[connection signal="value_changed" from="Border/BorderControl/Friction" to="Border/BorderControl" method="_on_friction_value_changed"]
+[connection signal="gui_input" from="Border/BorderControl/PropertyName" to="Border/BorderControl" method="_on_property_name_gui_input"]
+[connection signal="text_changed" from="Border/BorderControl/PropertyValue" to="Border/BorderControl" method="_on_property_value_text_changed"]
+[connection signal="item_clicked" from="Border/BorderControl/ItemList" to="Border/BorderControl" method="_on_item_list_item_clicked"]
+[connection signal="mouse_entered" from="Border/BorderControl/Area2D" to="Border/BorderControl" method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Border/BorderControl/Area2D" to="Border/BorderControl" method="_on_area_2d_mouse_exited"]
 [connection signal="mouse_entered" from="Control/Area2D" to="Field" method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Control/Area2D" to="Field" method="_on_area_2d_mouse_exited"]
 [connection signal="pressed" from="Control/Start" to="Funnel" method="_on_start_pressed"]
