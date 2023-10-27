@@ -1373,26 +1373,6 @@ offset_top = -448.0
 offset_right = -16.0
 offset_bottom = -408.0
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Control"]
-collision_layer = 2
-collision_mask = 2
-
-[node name="CollisionShape2D9" type="CollisionShape2D" parent="Control/StaticBody2D"]
-position = Vector2(-219, 448)
-shape = SubResource("RectangleShape2D_cvc3h")
-
-[node name="CollisionShape2D10" type="CollisionShape2D" parent="Control/StaticBody2D"]
-position = Vector2(331, 448)
-shape = SubResource("RectangleShape2D_cvc3h")
-
-[node name="CollisionShape2D11" type="CollisionShape2D" parent="Control/StaticBody2D"]
-position = Vector2(56, 909)
-shape = SubResource("RectangleShape2D_nkfda")
-
-[node name="CollisionShape2D12" type="CollisionShape2D" parent="Control/StaticBody2D"]
-position = Vector2(56, -89)
-shape = SubResource("RectangleShape2D_nkfda")
-
 [node name="Area2D" type="Area2D" parent="Control"]
 
 [node name="CollisionShape2D5" type="CollisionShape2D" parent="Control/Area2D"]
@@ -1530,7 +1510,6 @@ position = Vector2(390, 867)
 
 [node name="RoundTimer" type="Timer" parent="."]
 wait_time = 5.0
-one_shot = true
 script = ExtResource("9_xaoh2")
 
 [connection signal="timeout" from="Funnel/Timer" to="Funnel" method="_on_timer_timeout"]

@@ -1,18 +1,13 @@
 extends Area2D
 
-var points
+class_name Hole
 
-func _ready():
-	points = 0
+func count_points():
+	var points = 0
+	for body in get_overlapping_bodies():
+		if body.gravity_scale == 6:
+			points -= 50
+			continue
+		points += body.gravity_scale
+	return points
 
-func _on_body_entered(_body):
-	if $"..".gravity_scale == 6:
-		points -= 50
-		return
-	points += $"..".gravity_scale
-
-func _on_body_exited(_body):
-	if $"..".gravity_scale == 6:
-		points += 50
-		return
-	points -= $"..".gravity_scale

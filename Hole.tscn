@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://addons/softbody2d/softbody2d_rigidbody.gd" id="1_r2myw"]
 [ext_resource type="PhysicsMaterial" uid="uid://fv3cgw2bcemb" path="res://hole.tres" id="1_r6vwk"]
 [ext_resource type="Texture2D" uid="uid://lcqfs0uq6pkw" path="res://U.png" id="2_amghi"]
-[ext_resource type="Script" path="res://Area2D.gd" id="4_osnjw"]
+[ext_resource type="Script" path="res://HoleArea.cs" id="4_mmi4w"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yxric"]
 radius = 8.0
@@ -42,10 +42,10 @@ grow_vertical = 2
 scroll_active = false
 visible_characters = 1
 
-[node name="Area2D" type="Area2D" parent="." groups=["pointer"]]
-script = ExtResource("4_osnjw")
+[node name="HoleArea" type="Area2D" parent="." groups=["pointer"]]
+script = ExtResource("4_mmi4w")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HoleArea"]
 shape = SubResource("CircleShape2D_yxric")
 
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
@@ -61,6 +61,3 @@ position = Vector2(13, -16)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D2"]
 position = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_71g3t")
-
-[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
-[connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]
