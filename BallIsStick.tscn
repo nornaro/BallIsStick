@@ -1437,6 +1437,7 @@ offset_top = -1.0
 offset_right = 264.0
 offset_bottom = 19.0
 bbcode_enabled = true
+text = "0"
 scroll_active = false
 autowrap_mode = 0
 
@@ -1520,5 +1521,4 @@ script = ExtResource("9_xaoh2")
 [connection signal="pressed" from="Control/New" to="Holes" method="_on_new_pressed"]
 [connection signal="pressed" from="Control/Reset" to="Funnel" method="_on_reset_pressed"]
 [connection signal="pressed" from="Control/Reset" to="Holes" method="_on_reset_pressed"]
-[connection signal="timeout" from="RoundTimer" to="Funnel" method="_on_round_timer_timeout"]
-[connection signal="timeout" from="RoundTimer" to="RoundTimer" method="_on_timeout"]
+[connection signal="timeout" from="RoundTimer" to="RoundTimer" method="_on_round_timer_timeout"]

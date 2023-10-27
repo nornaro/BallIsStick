@@ -60,19 +60,23 @@ public partial class Funnel : Sprite2D
 		GetParent().Set("pointcount", (int)GetParent().Get("pointcount")-new_cost);
 		new_round();
 	}
-	private void new_round()
+	public void new_round()
 	{
 		NewPosition();
 		clear();
 		round_counter = 3;
 	}
-
+	public bool get_round()
+	{
+		return (round_counter == 0);
+	}
 	private void _on_reset_pressed()
 	{
 		GetParent().Set("pointcount", 0);
 		new_round();
 		GetNode<Timer>("Timer").Stop();
 		GetNode<Timer>("../RoundTimer").Stop();
+		GetNode<RichTextLabel>("../Control/Points").Text = "0";
 	}
 
 	private void clear()
@@ -90,14 +94,6 @@ public partial class Funnel : Sprite2D
 			return;
 		}
 		GetNode<Timer>("Timer").Stop();
-	}
-	private void _on_round_timer_timeout()
-	{
-		if (round_counter != 0)
-		{
-			return;
-		}
-		new_round();
 	}
 }
 

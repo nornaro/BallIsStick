@@ -12,7 +12,7 @@ public partial class RoundTimer : Timer
 		var balls = GetTree().GetNodesInGroup("ball");
 		foreach (RigidBody2D ball in balls)
 		{
-			if (ball.LinearVelocity.Length() < 0.01f)
+			if (ball.LinearVelocity.Length() < 1f)
 			{
 				ball.LinearVelocity=Vector2.Zero;
 				ball.AngularVelocity=0;
@@ -29,7 +29,7 @@ public partial class RoundTimer : Timer
 		}
 		return false;
 	}
-	private void _on_timeout()
+	private void _on_round_timer_timeout()
 	{
 		if (CheckBallVelocities())
 		{
@@ -60,5 +60,10 @@ public partial class RoundTimer : Timer
 		}
 		GetParent().Set("pointcount", pointcount);
 		GetNode<RichTextLabel>("../Control/Points").Text = pointcount.ToString();
+		if (GetNode<Funnel>("../Funnel").get_round())
+		{
+			return;
+		}
+		GetNode<Funnel>("../Funnel").new_round();
 	}
 }
